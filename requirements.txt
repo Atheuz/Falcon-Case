@@ -2,3 +2,5 @@ redis
 flask>=0.12.2
 flask_restplus
 sqlalchemy
+psycopg
+flask-sqlalchemy

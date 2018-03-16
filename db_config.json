@@ -1,0 +1,6 @@
+{
+    "username": "postgres",
+    "password": "1234",
+    "database_name": "postgres",
+    "table_name": "json_table"
+}
