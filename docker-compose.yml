@@ -2,5 +2,28 @@ version: '2'
 services:
   web:
     build: ./
+    ports:
+      - "80:80"
+    links:
+      - "db"
+      - "redis"
   redis:
-    image: "redis"
+    image: "redis:alpine"
+  db:
+    image: "postgres:alpine"
+    restart: "always"
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+
+  adminer:
+    image: "adminer"
+    restart: "always"
+    ports:
+      - "8080:8080"
+  
