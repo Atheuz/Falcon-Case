@@ -8,6 +8,7 @@ cache = Cache()
 class JSONObject(db.Model):
     __tablename__ = 'json_table'
     json_id = Column(Integer, primary_key=True)
+    # TODO: Fix this, we want to store JSON, not String.
     json_contents = Column(String)
 
     def __init__(self, contents=None):

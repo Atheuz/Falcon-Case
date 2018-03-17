@@ -6,12 +6,13 @@ from modules import api
 from modules.models import db
 from modules.models import cache
 
-def create_app():
+def create_app(dev_mode):
     app = Flask(__name__)
-    prod = True
-    if (prod):
+    if (dev_mode == False):
+        print("Loading in PROD mode")
         app.config.from_object('config.ProductionConfig')
     else:
+        print("Loading in DEV mode")
         app.config.from_object('config.Config')
 
     db.init_app(app)
