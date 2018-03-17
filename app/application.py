@@ -8,7 +8,11 @@ from modules.models import cache
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.Config')
+    prod = True
+    if (prod):
+        app.config.from_object('config.ProductionConfig')
+    else:
+        app.config.from_object('config.Config')
 
     db.init_app(app)
     api.init_app(app)
