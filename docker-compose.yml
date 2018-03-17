@@ -5,8 +5,11 @@ services:
     ports:
       - "80:80"
     links:
-      - "db"
+      - "db:db"
+    depends_on:
       - "redis"
+      - "db"
+      - "adminer"
   redis:
     image: "redis:alpine"
   db:
@@ -20,7 +23,6 @@ services:
       - "5432:5432"
     volumes:
       - ./schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
-
   adminer:
     image: "adminer"
     restart: "always"

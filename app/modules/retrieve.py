@@ -2,8 +2,7 @@ from flask import Flask
 from flask_restplus import Resource, Api, reqparse, Namespace, fields
 import json
 import utils
-from models import JSONObject
-from api import db
+from .models import JSONObject
 
 api = Namespace('retrieve', description='Retrieve all JSON objects in the store')
 

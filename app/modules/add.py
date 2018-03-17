@@ -2,8 +2,7 @@ from flask import Flask
 from flask_restplus import Resource, Api, reqparse, Namespace, fields
 import json
 import utils
-from models import JSONObject
-from api import db
+from .models import JSONObject, db
 
 api = Namespace('add', description='Add new JSON objects to the store')
 

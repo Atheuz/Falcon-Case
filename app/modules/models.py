@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, JSON
-from api import db
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 class JSONObject(db.Model):
     __tablename__ = 'json_table'
