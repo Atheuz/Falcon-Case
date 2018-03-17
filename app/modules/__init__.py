@@ -3,6 +3,8 @@ from .add import api as add_api
 from .retrieve import api as retrieve_api
 from .status import api as status_api
 
+# Set up API and register the API namespaces.
+
 api = Api(doc='/api/',
           version='v1.0',
           title='falcon.io Case API',

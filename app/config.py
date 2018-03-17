@@ -1,4 +1,5 @@
 class Config(object):
+    """Dev mode config. Use sqlite file for the database and simple for the cache."""
     DEBUG = True
     DEVELOPMENT = True
     SWAGGER_UI_LANGUAGES = ['en']
@@ -8,6 +9,7 @@ class Config(object):
     CACHE_TYPE = 'simple'
 
 class ProductionConfig(Config):
+    """PROD mode config. Use postgresql for the database and redis for the cache."""
     DEVELOPMENT = False
     DEBUG = False
     PG_USERNAME = "postgres"
