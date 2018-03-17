@@ -2,3 +2,4 @@ __pycache__/*
 app/__pycache__/*
 test/__pycache__/*
 app/modules/__pycache__/*
+app/*.db

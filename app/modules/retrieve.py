@@ -9,9 +9,9 @@ api = Namespace('retrieve', description='Retrieve all JSON objects in the store'
 
 @api.route('/')
 @api.doc()
-@cache.cached(50)
 class RetrieveAPI(Resource):
     """Retrieve all JSON objects in the store."""
+    @cache.cached(50, key_prefix='all objects')
     def get(self):
         store = JSONObject.query.all()
         

@@ -2,7 +2,9 @@ from flask import Flask
 from flask_restplus import Resource, Api, reqparse, Namespace, fields
 import json
 import utils
-from .models import JSONObject, db
+from .models import JSONObject
+from .models import db
+from .models import cache
 
 api = Namespace('add', description='Add new JSON objects to the store')
 
@@ -32,6 +34,8 @@ class AddAPI(Resource):
             obj = JSONObject(contents=data_loaded)
             db.session.add(obj)
             db.session.commit()
+            # Invalidate cache.
+            cache.clear()
             return utils.success_200(data)
         
         else:
