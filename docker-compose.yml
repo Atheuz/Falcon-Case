@@ -6,12 +6,16 @@ services:
       - "80:80"
     links:
       - "db:db"
+      - "redis:redis"
     depends_on:
       - "redis"
       - "db"
       - "adminer"
   redis:
     image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    restart: "always"
   db:
     image: "postgres:alpine"
     restart: "always"

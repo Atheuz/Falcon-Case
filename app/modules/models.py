@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, JSON
 from flask_sqlalchemy import SQLAlchemy
+from flask_caching import Cache
 
 db = SQLAlchemy()
+cache = Cache(config={'CACHE_TYPE': 'simple'})
 
 class JSONObject(db.Model):
     __tablename__ = 'json_table'

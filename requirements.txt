@@ -4,3 +4,4 @@ flask_restplus
 sqlalchemy
 flask-sqlalchemy
 psycopg2-binary
+Flask-Caching
