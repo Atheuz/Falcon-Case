@@ -10,9 +10,9 @@ class Config(object):
 class ProductionConfig(Config):
     DEVELOPMENT = False
     DEBUG = False
-    PG_USERNAME = "postgres",
-    PG_PASSWORD = "1234",
-    PG_DATABASE = "postgres",
+    PG_USERNAME = "postgres"
+    PG_PASSWORD = "1234"
+    PG_DATABASE = "postgres"
     PG_TABLE = "json_table"
     SQLALCHEMY_DATABASE_URI = 'postgresql://{}:{}@db:5432/{}'.format(PG_USERNAME, PG_PASSWORD, PG_DATABASE)
     CACHE_TYPE = 'redis'
