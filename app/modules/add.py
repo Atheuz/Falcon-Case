@@ -9,7 +9,7 @@ from .models import cache
 api = Namespace('add', description='Add new JSON objects to the store')
 
 add = api.model('add', {
-    's': fields.String(required=True, description='The JSON string to add to the store.'),
+    's': fields.String(required=True, description='The JSON object to add to the store.'),
 })
 
 @api.route('/<s>')
@@ -17,7 +17,6 @@ add = api.model('add', {
 class AddAPI(Resource):
     """Add new JSON object to the store"""
     
-    @api.doc("Add new JSON object to the store.")
     def get(self, s):
         data = s
 
