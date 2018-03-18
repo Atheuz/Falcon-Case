@@ -21,6 +21,13 @@ The task is to implement a data processing pipeline in the cloud. Set up a runni
 - :x: Your solution reflects a sense of quality you would be confident in releasing to production
 - :x: Documentation is applied to code / repository describing intent and purpose, as well as complicated / non obvious choices in the implementation
 
+## Architecture
+The architecture pattern chosen is the microservice pattern. 
+That is, the application, when run in production-mode, is run inside a docker container that is loosely coupled to other docker containers in which additional functionality is provided.
+Specifically, the web service itself is run in it's own container, run by nginx and served using uwsgi and python3.6. 
+The web service is dependent on separate containers: A postgresql container for providing database persistance. A redis container for providing cache functionality. An adminer container for providing administrative access to the database through a control panel.
+The reason that this pattern was chosen is the ease of which it allows portability, scalability and deployability, in that any platform that provides access to Docker can host the application. 
+
 ## How To Use
 There are two options for running the application.
 
