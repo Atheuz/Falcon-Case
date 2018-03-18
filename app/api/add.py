@@ -1,19 +1,19 @@
-from flask import Flask
+from database import db
+from database import cache
+from database.models import JSONObject
 from flask_restplus import Resource, Api, reqparse, Namespace, fields
+from api import utils
+from gather import tasks
 import json
-import utils
-from .models import JSONObject
-from .models import db
-from .models import cache
 
-api = Namespace('add', description='Add new JSON objects to the store')
+add_api = Namespace('add', description='Add new JSON objects to the store')
 
-add = api.model('add', {
+add = add_api.model('add', {
     's': fields.String(required=True, description='The JSON object to add to the store.'),
 })
 
-@api.route('/<s>')
-@api.param('s', 'The JSON to add')
+@add_api.route('/<s>')
+@add_api.param('s', 'The JSON to add')
 class AddAPI(Resource):    
     def get(self, s):
         """Add new JSON object to the store."""
@@ -25,10 +25,8 @@ class AddAPI(Resource):
             except json.decoder.JSONDecodeError as e: # If it's bad, then it's a bad request.
                 return utils.bad_request_400("Bad input.")
         
-            obj = JSONObject(contents=data_loaded) # Load into sqlalchemy object defined.
-            db.session.add(obj)
-            db.session.commit() # Add and commit it to the session.
-            
+            tasks.persist_to_db.delay(data_loaded)
+            obj = JSONObject(contents=data_loaded) # Load into sqlalchemy object defined.            
             cache.clear() # Invalidate cache, as the data in the cache no longer matches what is in the database.
 
             return utils.success_200(data) # Return success.
