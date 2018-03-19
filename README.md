@@ -17,9 +17,9 @@ The task is to implement a data processing pipeline in the cloud. Set up a runni
 - :heavy_check_mark: All tasks are solved in the solution
 - :heavy_check_mark: The application has a solid commit history
 - :heavy_check_mark: The application is built with scalability and maintainability in mind
-- :x: The application is built for testability, demonstrated by actual tests
+- :heavy_check_mark: The application is built for testability, demonstrated by actual tests
 - :heavy_check_mark: Your solution reflects a sense of quality you would be confident in releasing to production
-- :x: Documentation is applied to code / repository describing intent and purpose, as well as complicated / non obvious choices in the implementation
+- :heavy_check_mark: Documentation is applied to code / repository describing intent and purpose, as well as complicated / non obvious choices in the implementation
 
 ## Architecture
 The architecture pattern chosen is the microservice pattern. 
