@@ -1,1 +1,0 @@
-celery -E -A main.celery worker -P eventlet --loglevel=info
