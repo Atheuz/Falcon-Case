@@ -47,4 +47,5 @@ To give you a more complete picture of what docker images are used for the appli
 - `tiangolo/uwsgi-nginx-flask:python3.6` - python3.6 is the development language that the API was implemented in, and the image provides a web server through `nginx` and an application server through `uwsgi`.
 - `redis:alpine` - redis is used as an in-memory cache for the data requested over the API.
 - `postgres:alpine` - postgres is used to persist the JSON objects on a database.
+- `mher/flower` - flower used for providing real-time monitoring.
 - `adminer` - adminer is used to provide an administrative overview of the postgres database.
