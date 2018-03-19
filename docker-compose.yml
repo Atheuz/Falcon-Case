@@ -11,6 +11,13 @@ services:
       - "redis"
       - "db"
       - "adminer"
+  monitor:
+    image: "mher/flower"
+    command: "flower --address=0.0.0.0 --port=5555 --broker='redis://redis:6379/0'"
+    links:
+      - "redis:redis"
+    ports:
+      - "5555:5555"
   redis:
     image: "redis:alpine"
     ports:

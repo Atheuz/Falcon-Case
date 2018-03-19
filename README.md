@@ -8,50 +8,39 @@ The task is to implement a data processing pipeline in the cloud. Set up a runni
 - :heavy_check_mark: A REST endpoint is taking a dummy JSON input, and the server puts the REST payload on Redis or another tool you think is well suited for the task.
 - :heavy_check_mark: A Consumer is running in the application, taking the freshly received message and persists it in a database of your choice.
 - :heavy_check_mark: A REST endpoint is implemented for retrieving all the messages persisted in JSON format from the database.
-- :x: The message should also be pushed through Websockets for listening browser clients at the time the message was received on the REST endpoint
-- :x: A simple HTML page is implemented to show the real time message delivery
+- :heavy_check_mark: The message should also be pushed through Websockets for listening browser clients at the time the message was received on the REST endpoint
+- :heavy_check_mark: A simple HTML page is implemented to show the real time message delivery
 - :heavy_check_mark: Please setup a github repository to host the code and share it with your final note for review
 
 ## We're looking for that:
 
-- :x: All tasks are solved in the solution
-- :x: The application has a solid commit history
-- :x: The application is built with scalability and maintainability in mind
+- :heavy_check_mark: All tasks are solved in the solution
+- :heavy_check_mark: The application has a solid commit history
+- :heavy_check_mark: The application is built with scalability and maintainability in mind
 - :x: The application is built for testability, demonstrated by actual tests
-- :x: Your solution reflects a sense of quality you would be confident in releasing to production
+- :heavy_check_mark: Your solution reflects a sense of quality you would be confident in releasing to production
 - :x: Documentation is applied to code / repository describing intent and purpose, as well as complicated / non obvious choices in the implementation
 
 ## Architecture
 The architecture pattern chosen is the microservice pattern. 
-That is, the application, when run in production-mode, is run inside a docker container that is loosely coupled to other docker containers in which additional functionality is provided.
+The application is run inside a docker container that is loosely coupled to other docker containers in which additional functionality is provided.
 Specifically, the web service itself is run in it's own container, run by nginx and served using uwsgi and python3.6. 
+In addition to the web service, celery, is also used to provide asynchronous task handling.
+Flower is also utilised to provide real-time monitoring of celery.
 The web service is dependent on separate containers: A postgresql container for providing database persistance. A redis container for providing cache functionality. An adminer container for providing administrative access to the database through a control panel.
-The reason that this pattern was chosen is the ease of which it allows portability, scalability and deployability, in that any platform that provides access to Docker can host the application. 
+The reason that this pattern was chosen is the ease of which it allows for:
+- Portability and Deployability: Any platform where docker is supported, the application can be run.
+- Scalability: You can always add more celery workers to handle message persistance.
 
 ## How To Use
-There are two options for running the application.
-
-### Option 1 - Running it straight.
-The first option is to run the application locally on a workstation that has all the python packages required, see `requirements.txt` for the packages.
-Option 1 has primarily been used for development and testing, and as such does not use the same stack as option 2. Specifically, the stack does not include redis or postgresql, instead it uses simple caching and sqlite.
-
-To get started, ensure that you have python3.6 installed, and execute the following commands:
-
-- `pip install -r requirements.txt`
-- `cd app`
-- `python main.py`
-
-This will start a simple debugging web server hosting the API. The url for the server is `http://127.0.0.1/api` which contains Swagger documentation for the endpoints that were implemented.
-
-### Option 2 - Run it through docker-compose
-The second option is to run the application using `docker-compose`. This is the preferred option, as it uses the intended stack.
+The application can be run by using `docker-compose`.
 
 To get started, ensure that you have docker installed, and execute the following commands:
 
 - `docker-compose build`
 - `docker-compose up`
 
-This will create the docker images, and the different docker containers that are then started to host the API. The url for the server is `http://127.0.0.1/api` which contains Swagger documentation for the endpoints that were implemented.
+This will create the docker images, and the different docker containers that are then started to host the API. The url for the server is `http://127.0.0.1/api` which contains Swagger documentation for the endpoints that were implemented. The url for the flower page where real time updates can be seen is `127.0.0.1:5555`
 
 To give you a more complete picture of what docker images are used for the application, they are as follows:
 

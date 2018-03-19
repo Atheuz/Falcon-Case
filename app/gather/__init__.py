@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-
 from celery import Celery
 
-celery = Celery('tasks', broker='redis://localhost:6379/0', backend='redis://localhost:6379/0', include=['gather.tasks'])
+celery = Celery('tasks', broker='redis://redis:6379/0', backend='redis://redis:6379/0', accept_content=['json'], include=['gather.tasks'])
