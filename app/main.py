@@ -36,9 +36,7 @@ class ContextTask(TaskBase):
 celery.Task = ContextTask
 
 # Set up database
-db = SQLAlchemy()
 db.init_app(app) # Initialize the database with the app
-print(db)
 print("Resetting the database")
 db.drop_all(app=app) # Drop the table here, so we have a fresh start every time.
 db.create_all(app=app) # If the database table doesn't already exist, then create it here. 
