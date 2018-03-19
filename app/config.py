@@ -9,6 +9,3 @@ class Config(object):
     CACHE_TYPE = 'redis'
     SQLALCHEMY_DATABASE_URI = 'postgresql://{}:{}@db:5432/{}'.format(PG_USERNAME, PG_PASSWORD, PG_DATABASE)
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    
-    
-    

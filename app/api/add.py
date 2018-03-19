@@ -25,8 +25,7 @@ class AddAPI(Resource):
             except json.decoder.JSONDecodeError as e: # If it's bad, then it's a bad request.
                 return utils.bad_request_400("Bad input.")
         
-            tasks.persist_to_db.delay(data_loaded)
-            obj = JSONObject(contents=data_loaded) # Load into sqlalchemy object defined.            
+            tasks.persist_to_db.delay(data_loaded)          
             cache.clear() # Invalidate cache, as the data in the cache no longer matches what is in the database.
 
             return utils.success_200(data) # Return success.

@@ -27,7 +27,7 @@ api_instance.add_namespace(add_api, path='/add')
 api_instance.add_namespace(retrieve_api, path='/retrieve')
 api_instance.init_app(app) # Initialize the api
 
-TaskBase = celery.Task
+TaskBase = celery.Task # Fiddle with celery because Flask needs to be able to work with celery, and without this bit celery doesn't have the correct app context.
 class ContextTask(TaskBase):
     abstract = True
     def __call__(self, *args, **kwargs):
