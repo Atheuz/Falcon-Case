@@ -32,6 +32,14 @@ The reason that this pattern was chosen is the ease of which it allows for:
 - Portability and Deployability: Any platform where docker is supported, the application can be run.
 - Scalability: You can always add more celery workers to handle message persistance.
 
+To give you a more complete picture of what docker images are used for the application, they are as follows:
+
+- `tiangolo/uwsgi-nginx-flask:python3.6` - python3.6 is the development language that the API was implemented in, and the image provides a web server through `nginx` and an application server through `uwsgi`.
+- `redis:alpine` - redis is used as an in-memory cache for the data requested over the API.
+- `postgres:alpine` - postgres is used to persist the JSON objects on a database.
+- `mher/flower` - flower used for providing real-time monitoring.
+- `adminer` - adminer is used to provide an administrative overview of the postgres database.
+
 ## How To Use
 The application can be run by using `docker-compose`.
 
@@ -42,10 +50,6 @@ To get started, ensure that you have docker installed, and execute the following
 
 This will create the docker images, and the different docker containers that are then started to host the API. The url for the server is `http://127.0.0.1/api` which contains Swagger documentation for the endpoints that were implemented. The url for the flower page where real time updates can be seen is `127.0.0.1:5555`
 
-To give you a more complete picture of what docker images are used for the application, they are as follows:
+For testing, it is important that the database is clean so it should be run before anything else is done, the following command will execute the testing:
 
-- `tiangolo/uwsgi-nginx-flask:python3.6` - python3.6 is the development language that the API was implemented in, and the image provides a web server through `nginx` and an application server through `uwsgi`.
-- `redis:alpine` - redis is used as an in-memory cache for the data requested over the API.
-- `postgres:alpine` - postgres is used to persist the JSON objects on a database.
-- `mher/flower` - flower used for providing real-time monitoring.
-- `adminer` - adminer is used to provide an administrative overview of the postgres database.
+- `python run_tests.py`
