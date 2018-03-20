@@ -2,8 +2,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_restplus import Api
 
-from api.add import add_api
-from api.retrieve import retrieve_api
+from api.endpoint import endpoint_api
 
 from gather import tasks
 from gather import celery
@@ -23,8 +22,7 @@ api_instance = Api(doc='/api/',
                    title='falcon.io Case API',
                    description='This is the API for the falcon.io case.')
 
-api_instance.add_namespace(add_api, path='/add')
-api_instance.add_namespace(retrieve_api, path='/retrieve')
+api_instance.add_namespace(endpoint_api, path='/endpoint')
 api_instance.init_app(app) # Initialize the api
 
 TaskBase = celery.Task # Fiddle with celery because Flask needs to be able to work with celery, and without this bit celery doesn't have the correct app context.

@@ -48,7 +48,7 @@ To get started, ensure that you have docker installed, and execute the following
 - `docker-compose build`
 - `docker-compose up`
 
-This will create the docker images, and the different docker containers that are then started to host the API. The url for the server is `http://127.0.0.1/api` which contains Swagger documentation for the endpoints that were implemented. The url for the flower page where real time updates can be seen is `127.0.0.1:5555`
+This will create the docker images, and the different docker containers that are then started to host the API. The url for the server is `http://127.0.0.1/api` which contains Swagger documentation for the endpoints that were implemented. The actual endpoint for the API is `http://127.0.0.1/endpoint/` The url for the flower page where real time updates can be seen is `127.0.0.1:5555`
 
 For testing, it is important that the database is clean so it should be run before anything else is done, the following command will execute the testing:
 
