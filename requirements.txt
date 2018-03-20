@@ -7,3 +7,5 @@ psycopg2-binary
 Flask-Caching
 celery
 flower
+requests
+websockets

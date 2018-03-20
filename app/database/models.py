@@ -6,7 +6,7 @@ class JSONObject(db.Model):
 
     __tablename__ = 'json_table'
     json_id = Column(Integer, primary_key=True)
-    json_contents = Column(JSON) # TODO: Fix this, we want to store JSON, not String.
+    json_contents = Column(JSON)
 
     def __init__(self, contents=None):
         self.json_contents = contents

@@ -1,7 +1,8 @@
 from database import db
 from database import cache
 from database.models import JSONObject
-from flask_restplus import Resource, Api, reqparse, Namespace, fields
+from flask import request
+from flask_restplus import Resource, Api, Namespace, fields
 from api import utils
 from gather import tasks
 import json
@@ -9,23 +10,22 @@ import json
 add_api = Namespace('add', description='Add new JSON objects to the store')
 
 add = add_api.model('add', {
-    's': fields.String(required=True, description='The JSON object to add to the store.'),
+    'data': fields.String(required=True, description='The JSON object to add to the store.'),
 })
 
-@add_api.route('/<s>')
-@add_api.param('s', 'The JSON to add')
+@add_api.route('/', methods=["POST"])
+@add_api.expect(add)
 class AddAPI(Resource):    
-    def get(self, s):
+    def post(self):
         """Add new JSON object to the store."""
-        data = s
-        
+        data = request.json
         if(data): # If we have an input we can proceed, otherwise it's a bad request.
             try: # Check if JSON is valid
-                data_loaded = json.loads(data) 
+                _ = json.dumps(data)
             except json.decoder.JSONDecodeError as e: # If it's bad, then it's a bad request.
                 return utils.bad_request_400("Bad input.")
         
-            tasks.persist_to_db.delay(data_loaded)          
+            tasks.persist_to_db.delay(data)          
             cache.clear() # Invalidate cache, as the data in the cache no longer matches what is in the database.
 
             return utils.success_200(data) # Return success.
