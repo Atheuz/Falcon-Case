@@ -20,8 +20,8 @@ class TestAPI(unittest.TestCase):
         req = requests.post(url, json={"a": 1234, "b": 5678, "c": 90})
         self.assertEqual(req.status_code, 200) # Should go through fine.
     
-        #req = requests.post(url, data='???????????')
-        #self.assertEqual(req.status_code, 400) # Invalid param should fail.
+        req = requests.post(url, data='???????????')
+        self.assertEqual(req.status_code, 400) # Invalid param should fail.
 
     def test_retrieve_all(self):
         """Test retrieval of all objects."""
